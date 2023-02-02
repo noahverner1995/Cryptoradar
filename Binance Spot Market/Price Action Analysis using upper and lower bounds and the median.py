@@ -114,6 +114,7 @@ for i in range(len(upper_indices)):
     
 possible_long_entries= pd.DataFrame(data)
 possible_long_entries['Bullish Percentage Change'] = (upper_bound[possible_long_entries['End Index']].values - lower_bound[possible_long_entries['Start Index']].values)/(lower_bound[possible_long_entries['Start Index']].values)*100
+possible_long_entries['Hours Spent'] =(possible_long_entries['End Index'] - possible_long_entries['Start Index'])*(df['Start Date'].iat[1]-df['Start Date'].iat[0]).total_seconds()/3600
 
 # Mark the possible long entries, in order to do this first create an NaN df that contains the same indices as the original df
 # Then assign to each index of the possible_long_entries its corresponding price from the lower_bound
@@ -139,27 +140,27 @@ bullish_percentage_change_between_bounds.rename('Bullish Pct Chg', inplace = Tru
 
 skewness_value = bullish_percentage_change_between_bounds.skew()
 kurtosis_value = bullish_percentage_change_between_bounds.kurt()
+print()
 
 if (abs(skewness_value) > 0.5):
     
     # Use the median to properly estimate the return on investment per trade
     expected_roi = bullish_percentage_change_between_bounds.median()
     if kurtosis_value > 3:
-        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the expected roi is {expected_roi}%')
+        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
     elif kurtosis_value < 3:
-        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the expected roi is {expected_roi}%')
+        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
 
 elif (abs(skewness_value) <= 0.5):
     
     # Use the mean to properly estimate the return on investment per trade
     expected_roi = bullish_percentage_change_between_bounds.mean()
     if kurtosis_value > 3:
-        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the expected roi is {expected_roi}%')
+        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
     elif kurtosis_value < 3:
-        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the expected roi is {expected_roi}%')
+        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
 
 # Create another mask to know at which indices the expected_roi was reached by the df["High Price"]
-
 x = lower_bound.iloc[list(lower_bound[lower_bound.notnull()].index.values)]
 x = x + (x * expected_roi / 100)
 actual_upper_bound = x.reindex(df.index, fill_value=np.nan)
@@ -168,7 +169,6 @@ roi_mask_high = df["High Price"] >= actual_upper_bound
 roi_indices = list(roi_mask_high[roi_mask_high].index)
 
 # Now figure out which long entries would have been actually made using the expected_roi
-
 data = {"Start Index": [], "End Index": []}
 
 entry = lower_indices[0]
@@ -186,8 +186,15 @@ for i in range(len(roi_indices)):
 
 actual_long_entries= pd.DataFrame(data)
 actual_long_entries['Bullish Percentage Change'] = (df["High Price"][actual_long_entries['End Index']].values - lower_bound[actual_long_entries['Start Index']].values)/(lower_bound[actual_long_entries['Start Index']].values)*100
+actual_long_entries['Hours Spent'] =(actual_long_entries['End Index'] - actual_long_entries['Start Index'])*(df['Start Date'].iat[1]-df['Start Date'].iat[0]).total_seconds()/3600
 
-# Mark the possible take-profits that would have been actually made, in order to do this first create an NaN df that contains the same indices as the original df
+# Mark the actual long entries, in order to do this first create an NaN df that contains the same indices as the original df
+# Then assign to each index of the actual_long_entries its corresponding price from the lower_bound
+df_mark_real_entry_points = pd.DataFrame([float('nan')]*len(df),index=df.index,columns=['Bullish Entries'])
+for ix,val in zip(actual_long_entries['Start Index'].values,lower_bound[actual_long_entries['Start Index']].values):
+    df_mark_real_entry_points.loc[ix] = val
+
+# Mark the actual take-profits that would have been actually made, in order to do this first create an NaN df that contains the same indices as the original df
 # Then assign to each index of the actual_long_entries its corresponding price from the "High Price" column of the df
 df_mark_real_tp_points = pd.DataFrame([float('nan')]*len(df),index=df.index,columns=['Bullish Entries'])
 for ix,val in zip(actual_long_entries['End Index'].values,df["High Price"][actual_long_entries['End Index']].values):
@@ -197,7 +204,9 @@ for ix,val in zip(actual_long_entries['End Index'].values,df["High Price"][actua
 plots_to_add = [mpf.make_addplot(upper_bound,color='#F93BFF'), mpf.make_addplot(lower_bound,color='white'),
                 mpf.make_addplot(df_mark_entry_points,type='scatter',markersize=50,marker='^', color='#00FFE0'),
                 mpf.make_addplot(df_mark_tp_points,type='scatter',markersize=50,marker='v', color='#FFF000'),
-                mpf.make_addplot(df_mark_real_tp_points,type='scatter',markersize=50,marker='v', color='white')]
+                mpf.make_addplot(df_mark_real_entry_points,type='scatter',markersize=50,marker='^', color='#0042FF'),
+                mpf.make_addplot(df_mark_real_tp_points,type='scatter',markersize=50,marker='v', color='white')
+                ]
 
 print()
 # Plot the Close Price, Moving average, upper and lower bounds using a line chart.
@@ -226,10 +235,24 @@ candlestick_plot, axlist = mpf.plot(df_trading_pair_date_time_index,
 symbol = trading_pair.replace("USDT", "")+"/"+"USDT"
 axlist[0].set_title(f"{symbol} - 15m", fontsize=45, style='italic', fontfamily='fantasy')
 
-if df['Close Price'].iloc[-1] > upper_bound.iloc[-1]:
-    print(f"The close price of {symbol} is likely to go up.")
-elif df['Close Price'].iloc[-1] < lower_bound.iloc[-1]:
-    print(f"The close price of {symbol} is likely to go down.")
-else:
-    print(f"The close price {symbol} is likely to remain stable.")
+# Create a financial report
+print(f"The trading pair analyzed was {symbol}")
+print("The simulated long entries made using only the upper and lower bounds were the following:")
+print(possible_long_entries)
+print(f"The total sum of potential roi per trades was: {round(possible_long_entries['Bullish Percentage Change'].sum(),2)}%")
+print(f"The average time spent per trade was: {round(possible_long_entries['Hours Spent'].mean(),2)} hours")
 
+print()
+print("In contrast, the simulated long entries made using only the lower bound and the median were the following:")
+print(actual_long_entries)
+print(f"The total sum of potential roi per trades was: {round(actual_long_entries['Bullish Percentage Change'].sum(),2)}%")
+print(f"The average time spent per trade was: {round(actual_long_entries['Hours Spent'].mean(),2)} hours")
+
+print()
+
+if df['Close Price'].iloc[-1] > upper_bound.iloc[-1]:
+    print(f"Currently, the close price of {symbol} is likely to go up.")
+elif df['Close Price'].iloc[-1] < lower_bound.iloc[-1]:
+    print(f"Currently, the close price of {symbol} is likely to go down.")
+else:
+    print(f"Currently, the close price of {symbol} is likely to remain stable.")
