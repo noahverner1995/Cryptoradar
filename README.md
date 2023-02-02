@@ -25,6 +25,13 @@ Having said that, I also have to state that I'm not responsible for whatever res
 * **[Pandas](https://pandas.pydata.org/)**
 * **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**
 * **[NumPy](https://numpy.org/)**
-* **[Spyder](https://www.spyder-ide.org/) (Or your preferred Python3 environment)**
+* **[Spyder](https://www.spyder-ide.org/)** (Or your preferred Python3 environment)
 
+## Installation
 
+Once you have installed Spyder (Or your preferred Python3 environment), open `cmd` on Windows, then:
+
+- To install the **Python Binance package** run: `pip install python-binance`
+- To install **Pandas** run: `pip install pandas`
+- To install **MatPlotLibFinance** run: `pip install --upgrade mplfinance`
+- To install **NumPy** run: `pip install numpy`
