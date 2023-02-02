@@ -35,3 +35,13 @@ Once you have installed Spyder (Or your preferred Python3 environment), open `cm
 - To install **Pandas** run: `pip install pandas`
 - To install **MatPlotLibFinance** run: `pip install --upgrade mplfinance`
 - To install **NumPy** run: `pip install numpy`
+
+## Usage
+
+Now before running [Price Action Analysis using upper and lower bounds and the median.py](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median.py), you have to set the following input:
+
+- **To set your trading pair**, go where the `trading_pair` variable is initialized and change `""` for a value like `MATICUSDT` or `BTCUSDT` (these values are strictly tied to what cryptocurrencies Binance currently has listed).
+- **To set your timeframe**, go where the `klines` variable is initialized and change the current value of the parameter `interval` for your desired one, for instance: `1m` or `5m` or `1h` or `1d` (just like those values that are shown when a trading chart is displayed)
+- **To set your start date**, go where the `klines` variable is initialized and change the current value of the parameter `start_str` for your desired one, for instance: `24 hours ago UTC` or `2 weeks ago UTC` or `800 minutes ago UTC` (it is recommended that you get enough data for the program to analyze, **5 days of data with a 15m timeframe is enough** imo)
+
+`api_key` AND `secret_key` are variables that are initialized because the Binance exchange REST API V3 demands it, but as you are not actually going to trade anything they can be left initialized as `""`
