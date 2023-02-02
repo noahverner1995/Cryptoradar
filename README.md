@@ -14,7 +14,7 @@ This project was created with the aim of making a good, yet simple, statistical 
 This project ***should not be*** taken as a financial advice for several different reasons: 
 
 * *It hasn't been tested in a production environment.*
-* *It is extremely **biased**, as it was stated that it focused on analyzing a particular "way" of making trading decisions and it didn't consider other major factors such as the liquidity of the trading pair.*
+* *It is a bit **biased**, as it was stated that it focused on analyzing a particular "way" of making trading decisions and it didn't consider other major factors such as the liquidity of the trading pair.*
 * *The output thrown as well as the assumptions made were done to please my interpretation of the "way" my friend was making profits, meaning that my minimalistic approach to analyze his case may not suit your interpretation of his case.*
 
 Having said that, I also have to state that I'm not responsible for whatever results you get from using this information and software later, it is up to you to decide if your financial decisions will be made just as my friend was making them.
