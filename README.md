@@ -45,3 +45,8 @@ Now before running [Price Action Analysis using upper and lower bounds and the m
 - **To set your start date**, go where the `klines` variable is initialized and change the current value of the parameter `start_str` for your desired one, for instance: `24 hours ago UTC` or `2 weeks ago UTC` or `800 minutes ago UTC` (it is recommended that you get enough data for the program to analyze, **5 days of data with a 15m timeframe is enough** imo)
 
 `api_key` AND `secret_key` are variables that are initialized because the Binance exchange REST API V3 demands it, but as you are not actually going to trade anything they can be left initialized as `""`
+
+## Input Data
+
+The program already handles all of the *ETL process* completely, you don't need to input anything else than the values for `trading_pair, `interval`, and `start_str` variables.
+
