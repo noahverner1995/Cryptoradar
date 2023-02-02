@@ -18,3 +18,13 @@ This project ***should not be*** taken as a financial advice for several differe
 * *The output thrown as well as the assumptions made were done to please my interpretation of the "way" my friend was making profits, meaning that my minimalistic approach to analyze his case may not suit your interpretation of his case.*
 
 Having said that, I also have to state that I'm not responsible for whatever results you get from using this information and software later, it is up to you to decide if your financial decisions will be made just as my friend was making them.
+
+## Requirements
+
+* **[Python Binance package](https://python-binance.readthedocs.io/en/latest/)** (unofficial Python wrapper for the [Binance exchange REST API v3](https://binance-docs.github.io/apidocs/spot/en/#change-log))
+* **[Pandas](https://pandas.pydata.org/)**
+* **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**
+* **[NumPy](https://numpy.org/)**
+* **[Spyder](https://www.spyder-ide.org/) (Or your preferred Python3 environment)**
+
+
