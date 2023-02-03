@@ -114,6 +114,10 @@ You will get an output like this:
 
 ![C98USDT-15m-5DAYSAGOUTC](https://user-images.githubusercontent.com/83596569/216649765-89867426-c88b-4ea0-b54a-20a647f0a36c.png)
 
+## Future Work
+
+1.  Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**
+
 ## Contributors
 
 [Noah Verner - Software Engineer & Data Analyst](https://www.linkedin.com/in/noahverner/)
