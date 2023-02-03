@@ -114,6 +114,10 @@ You will get an output like this:
 
 ![C98USDT-15m-5DAYSAGOUTC](https://user-images.githubusercontent.com/83596569/216649765-89867426-c88b-4ea0-b54a-20a647f0a36c.png)
 
+## Contributors
+
+[Noah Verner - Software Engineer & Data Analyst](https://www.linkedin.com/in/noahverner/)
+
 ## License
 
 This project was released with the [MIT License](https://github.com/noahverner1995/Cryptoradar/blob/main/LICENSE)
