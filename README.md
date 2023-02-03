@@ -48,5 +48,68 @@ Now before running [Price Action Analysis using upper and lower bounds and the m
 
 ## Input Data
 
-The program already handles all of the *ETL process* completely, you don't need to input anything else than the values for `trading_pair, `interval`, and `start_str` variables.
+The program already handles all of the *ETL process* completely, you don't need to input anything else than the values for `trading_pair`, `interval`, and `start_str` variables.
 
+## Output Data
+
+Say you set the following input values:
+
+`trading_pair = "C98USDT"`
+
+`interval = "15m"`
+
+`start_str = "5 days ago UTC"`
+
+You will get an output like this:
+
+> The bullish percentage change between bounds follows a Leptokurtic distribution, and the median (suggested ROI per trade) is 3.25%
+
+> The trading pair analyzed was C98/USDT
+
+> The simulated long entries made using only the upper and lower bounds were the following:`
+
+|    |   Start Index |   End Index |   Bullish Percentage Change |   Hours Spent |
+|---:|--------------:|------------:|----------------------------:|--------------:|
+|  0 |            14 |          26 |                    1.21382  |          3    |
+|  1 |            38 |          58 |                    1.33546  |          5    |
+|  2 |            59 |          62 |                    1.40398  |          0.75 |
+|  3 |            63 |          64 |                    2.24854  |          0.25 |
+|  4 |            66 |          89 |                   -2.00651  |          5.75 |
+|  5 |           106 |         133 |                    2.25996  |          6.75 |
+|  6 |           150 |         161 |                    2.373    |          2.75 |
+|  7 |           165 |         185 |                    0.180333 |          5    |
+|  8 |           211 |         214 |                    2.31662  |          0.75 |
+|  9 |           215 |         224 |                    4.90001  |          2.25 |
+| 10 |           247 |         281 |                   -2.80273  |          8.5  |
+| 11 |           283 |         298 |                    0.273368 |          3.75 |
+| 12 |           349 |         351 |                    2.08824  |          0.5  |
+| 13 |           372 |         386 |                    3.18803  |          3.5  |
+| 14 |           396 |         418 |                   -1.63708  |          5.5  |
+| 15 |           427 |         435 |                    2.27166  |          2    |
+| 16 |           444 |         456 |                    1.20849  |          3    |
+| 17 |           468 |         475 |                    2.43259  |          1.75 |
+
+> The total sum of potential roi per trades was: 23.25%
+
+> The average time spent per trade was: 3.38 hours
+
+> In contrast, the simulated long entries made using only the lower bound and the median were the following:
+
+|    |   Start Index |   End Index |   Bullish Percentage Change |   Hours Spent |
+|---:|--------------:|------------:|----------------------------:|--------------:|
+|  0 |            14 |          65 |                     3.4554  |         12.75 |
+|  1 |            66 |          94 |                     3.55851 |          7    |
+|  2 |           106 |         134 |                     3.82163 |          7    |
+|  3 |           150 |         161 |                     3.53776 |          2.75 |
+|  4 |           165 |         187 |                     9.406   |          5.5  |
+|  5 |           211 |         224 |                     7.47438 |          3.25 |
+|  6 |           247 |         355 |                     3.84735 |         27    |
+|  7 |           372 |         386 |                     4.37458 |          3.5  |
+
+> The total sum of potential roi per trades was: 39.48%
+
+> The average time spent per trade was: 8.59 hours
+
+> Currently, the close price of C98/USDT is likely to remain stable.
+
+![C98USDT-15m-5DAYSAGOUTC](https://user-images.githubusercontent.com/83596569/216649765-89867426-c88b-4ea0-b54a-20a647f0a36c.png)
