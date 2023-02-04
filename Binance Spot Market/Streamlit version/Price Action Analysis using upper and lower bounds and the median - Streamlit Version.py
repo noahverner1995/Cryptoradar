@@ -157,10 +157,6 @@ elif (abs(skewness_value) <= 0.5):
     
     # Use the mean to properly estimate the return on investment per trade
     expected_roi = bullish_percentage_change_between_bounds.mean()
-    if kurtosis_value > 3:
-        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
-    elif kurtosis_value < 3:
-        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
 
 # Create another mask to know at which indices the expected_roi was reached by the df["High Price"]
 x = lower_bound.iloc[list(lower_bound[lower_bound.notnull()].index.values)]
