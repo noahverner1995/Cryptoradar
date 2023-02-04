@@ -66,9 +66,12 @@ secret_key = ""
 
 client = Client(api_key=api_key, api_secret= secret_key, tld= "com")
 
-trading_pair = ""
+trading_pair = "C98USDT"
+symbol = trading_pair.replace("USDT", "")+"/"+"USDT"
+timeframe = "15m" # For instance: 3m, 15m, 1h, 2h...
+start_date = "5 days ago UTC" # For instance: 400 hours ago UTC, 1 week UTC, 5 days ago UTC...
 
-klines = client.get_historical_klines(symbol=trading_pair, interval="15m", start_str = "5 days ago UTC")
+klines = client.get_historical_klines(symbol=trading_pair, interval=timeframe, start_str = start_date)
 
 # Customize the df_trading_pair that stored klines
 df = klines_to_df(pd.DataFrame(klines))
@@ -156,9 +159,9 @@ elif (abs(skewness_value) <= 0.5):
     # Use the mean to properly estimate the return on investment per trade
     expected_roi = bullish_percentage_change_between_bounds.mean()
     if kurtosis_value > 3:
-        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
+        print(f'The bullish percentage change between bounds follows a Leptokurtic distribution, and the mean (suggested ROI per trade) is {expected_roi}%')
     elif kurtosis_value < 3:
-        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the median (suggested ROI per trade) is {expected_roi}%')
+        print(f'The bullish percentage change between bounds follows a Platikurtic distribution, and the mean (suggested ROI per trade) is {expected_roi}%')
 
 # Create another mask to know at which indices the expected_roi was reached by the df["High Price"]
 x = lower_bound.iloc[list(lower_bound[lower_bound.notnull()].index.values)]
