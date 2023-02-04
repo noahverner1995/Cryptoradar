@@ -35,14 +35,16 @@ Once you have installed Spyder (Or your preferred Python3 environment), open `cm
 - To install **Pandas** run: `pip install pandas`
 - To install **MatPlotLibFinance** run: `pip install --upgrade mplfinance`
 - To install **NumPy** run: `pip install numpy`
+- To install **Bokeh** run: `pip install --force-reinstall --no-deps bokeh==2.4.3` (this version is as of today the right one that works with the Streamlit framework)
+- To install **Streamlit** run: `pip install streamlit`
 
 ## Usage
 
-Now before running [Price Action Analysis using upper and lower bounds and the median.py](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median.py), you have to set the following input:
+Now before running [Price Action Analysis using upper and lower bounds and the median.py](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/MplFinance%20version/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median.py), you have to set the following input:
 
 - **To set your trading pair**, go where the `trading_pair` variable is initialized and change `""` for a value like `MATICUSDT` or `BTCUSDT` (these values are strictly tied to what cryptocurrencies Binance currently has listed).
-- **To set your timeframe**, go where the `klines` variable is initialized and change the current value of the parameter `interval` for your desired one, for instance: `1m` or `5m` or `1h` or `1d` (just like those values that are shown when a trading chart is displayed)
-- **To set your start date**, go where the `klines` variable is initialized and change the current value of the parameter `start_str` for your desired one, for instance: `24 hours ago UTC` or `2 weeks ago UTC` or `800 minutes ago UTC` (it is recommended that you get enough data for the program to analyze, **5 days of data with a 15m timeframe is enough** imo)
+- **To set your timeframe**, go where the `timeframe` variable is initialized and change  change `""` for your desired one, for instance: `1m` or `5m` or `1h` or `1d` (just like those values that are shown when a trading chart is displayed)
+- **To set your start date**,  go where the `start_date` variable is initialized and change  change `""` for your desired one, for instance: `24 hours ago UTC` or `2 weeks ago UTC` or `800 minutes ago UTC` (it is recommended that you get enough data for the program to analyze, **5 days of data with a 15m timeframe is enough** imo)
 
 `api_key` AND `secret_key` are variables that are initialized because the Binance exchange REST API V3 demands it, but as you are not actually going to trade anything they can be left initialized as `""`
 
@@ -56,9 +58,9 @@ Say you set the following input values:
 
 `trading_pair = "C98USDT"`
 
-`interval = "15m"`
+`timeframe = "15m"`
 
-`start_str = "5 days ago UTC"`
+`start_date = "5 days ago UTC"`
 
 You will get an output like this:
 
@@ -110,13 +112,19 @@ You will get an output like this:
 
 > The average time spent per trade was: 8.59 hours
 
-> Currently, the close price of C98/USDT is likely to remain stable.
+Chart from the MplFinance version:
 
 ![C98USDT-15m-5DAYSAGOUTC](https://user-images.githubusercontent.com/83596569/216649765-89867426-c88b-4ea0-b54a-20a647f0a36c.png)
 
+Chart from the Streamlit version:
+
+![98USDT-15m-5DAYSAGOUTC-Streamlit](https://user-images.githubusercontent.com/83596569/216770723-6ed1e988-177a-4958-8c90-73224460a706.png)
+
+> Currently, the close price of C98/USDT is likely to remain stable.
+
 ## Future Work
 
-1.  Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**
+1.   <s>Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**</s> Done, [here](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Streamlit%20version/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median%20-%20Streamlit%20Version.py): 
 
 ## Contributors
 
