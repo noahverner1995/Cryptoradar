@@ -112,11 +112,11 @@ You will get an output like this:
 
 > The average time spent per trade was: 8.59 hours
 
-Chart from the MplFinance version:
+**Chart from the MplFinance version:**
 
 ![C98USDT-15m-5DAYSAGOUTC](https://user-images.githubusercontent.com/83596569/216649765-89867426-c88b-4ea0-b54a-20a647f0a36c.png)
 
-Chart from the Streamlit version:
+**Chart from the Streamlit version:**
 
 ![98USDT-15m-5DAYSAGOUTC-Streamlit](https://user-images.githubusercontent.com/83596569/216770723-6ed1e988-177a-4958-8c90-73224460a706.png)
 
@@ -124,7 +124,7 @@ Chart from the Streamlit version:
 
 ## Future Work
 
-1.   <s>Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**</s> Done, [here](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Streamlit%20version/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median%20-%20Streamlit%20Version.py): 
+1.   <s>Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**</s> Done, [here](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Streamlit%20version/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median%20-%20Streamlit%20Version.py)
 
 ## Contributors
 
