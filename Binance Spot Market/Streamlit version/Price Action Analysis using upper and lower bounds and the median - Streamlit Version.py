@@ -69,10 +69,10 @@ secret_key = ""
 
 client = Client(api_key=api_key, api_secret= secret_key, tld= "com")
 
-trading_pair = "C98USDT"
+trading_pair = ""
 symbol = trading_pair.replace("USDT", "")+"/"+"USDT"
-timeframe = "15m" # For instance: 3m, 15m, 1h, 2h...
-start_date = "5 days ago UTC" # For instance: 400 hours ago UTC, 1 week UTC, 5 days ago UTC...
+timeframe = "" # For instance: 3m, 15m, 1h, 2h...
+start_date = "" # For instance: 400 hours ago UTC, 1 week UTC, 5 days ago UTC...
 
 klines = client.get_historical_klines(symbol=trading_pair, interval=timeframe, start_str = start_date)
 
