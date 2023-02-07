@@ -56,16 +56,6 @@ def klines_to_df(df_trading_pair):
     
     return df_trading_pair
 
-def set_DateTimeIndex(df_trading_pair):
-    df_trading_pair = df_trading_pair.set_index('Start Date', inplace=False)
-    # Rename the column names for best practices
-    df_trading_pair.rename(columns = { "Open Price" : 'Open',
-                                       "High Price" : 'High',
-                                       "Low Price" : 'Low',
-                                       "Close Price" :'Close',
-                              }, inplace = True)
-    return df_trading_pair
-
 api_key = ""
 
 secret_key = ""
@@ -164,8 +154,6 @@ for trading_pair in tickers:
                 # Customize the df_trading_pair that stored klines
                 df = klines_to_df(pd.DataFrame(klines))
 
-                df_trading_pair_date_time_index = set_DateTimeIndex(df)
-
                 # Calculate moving average and std deviation of the close price
                 rolling_mean = df['Close Price'].rolling(window=window_size).mean()
                 rolling_std = df['Close Price'].rolling(window=window_size).std()
@@ -229,7 +217,6 @@ for trading_pair in tickers:
                 #Kurtosis applied to Financial Markets: https://www.investopedia.com/terms/k/kurtosis.asp
 
                 skewness_value = bullish_percentage_change_between_bounds.skew()
-                kurtosis_value = bullish_percentage_change_between_bounds.kurt()
                 print()
 
                 if (abs(skewness_value) > 0.5):
