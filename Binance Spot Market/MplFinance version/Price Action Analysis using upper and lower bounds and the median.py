@@ -20,6 +20,8 @@ def set_pandas_display_options() -> None:
     display.width = 200
     display.precision = 6  # set as needed
 
+set_pandas_display_options()
+
 def klines_to_df(df_trading_pair):
     
     #drop unnecesary columns
@@ -66,10 +68,10 @@ secret_key = ""
 
 client = Client(api_key=api_key, api_secret= secret_key, tld= "com")
 
-trading_pair = "C98USDT"
+trading_pair = ""
 symbol = trading_pair.replace("USDT", "")+"/"+"USDT"
-timeframe = "15m" # For instance: 3m, 15m, 1h, 2h...
-start_date = "5 days ago UTC" # For instance: 400 hours ago UTC, 1 week UTC, 5 days ago UTC...
+timeframe = "" # For instance: 3m, 15m, 1h, 2h...
+start_date = "" # For instance: 400 hours ago UTC, 1 week UTC, 5 days ago UTC...
 
 klines = client.get_historical_klines(symbol=trading_pair, interval=timeframe, start_str = start_date)
 
@@ -203,13 +205,11 @@ df_mark_real_tp_points = pd.DataFrame([float('nan')]*len(df),index=df.index,colu
 for ix,val in zip(actual_long_entries['End Index'].values,df["High Price"][actual_long_entries['End Index']].values):
     df_mark_real_tp_points.loc[ix, 'Bullish Entries'] = val
 
-# Store the plots of upper and lower bounds as well as the possible and actual long entries for later use
-plots_to_add = [mpf.make_addplot(upper_bound,color='#F93BFF'), mpf.make_addplot(lower_bound,color='white'),
-                mpf.make_addplot(df_mark_entry_points,type='scatter',markersize=50,marker='^', color='#00FFE0'),
-                mpf.make_addplot(df_mark_tp_points,type='scatter',markersize=50,marker='v', color='#FFF000'),
-                mpf.make_addplot(df_mark_real_entry_points,type='scatter',markersize=50,marker='^', color='#0042FF'),
-                mpf.make_addplot(df_mark_real_tp_points,type='scatter',markersize=50,marker='v', color='white')
-                ]
+# Store the plots of upper and lower bounds as well as the possible for later use
+plots_to_add = {"Upper Bound":mpf.make_addplot(upper_bound,color='#F93BFF'), "Lower Bound":mpf.make_addplot(lower_bound,color='white'),
+                "Regular Long Entry Points":mpf.make_addplot(df_mark_entry_points,type='scatter',markersize=50,marker='^', color='#00FFE0'),
+                "Regular Take Profit Points":mpf.make_addplot(df_mark_tp_points,type='scatter',markersize=50,marker='v', color='#FFF000')
+                }
 
 print()
 # Plot the Close Price, Moving average, upper and lower bounds using a line chart.
@@ -232,11 +232,61 @@ candlestick_plot, axlist = mpf.plot(df_trading_pair_date_time_index,
                     returnfig=True,
                     show_nontrading=True,
                     warn_too_much_data=870, # Silence the Too Much Data Plot Warning by setting a value greater than the amount of rows you want to be plotted
-                    addplot = plots_to_add # Add the upper and lower bounds plots as well as the bullish entries to the main plot
+                    addplot = list(plots_to_add.values()) # Add the upper and lower bounds plots as well as the bullish entries to the main plot
                     )
 # Add Title
 symbol = trading_pair.replace("USDT", "")+"/"+"USDT"
-axlist[0].set_title(f"{symbol} - 15m", fontsize=45, style='italic', fontfamily='fantasy')
+axlist[0].set_title(f"{symbol} - {timeframe}", fontsize=45, style='italic', fontfamily='fantasy')
+
+# Set the legends
+# First set the amount of legends to add to the legend box
+axlist[0].legend([None]*(len(plots_to_add)+2))
+# Then Store the legend objects in a variable called "handles", based on this script, your objects to legend will appear from the third element in this list
+handles = axlist[0].get_legend().legendHandles
+# Finally set the corresponding names for the plotted SMA trends and place the legend box to the lower right corner in the bigger plot
+axlist[0].legend(handles=handles[2:],labels=list(plots_to_add.keys()), loc = 'lower left', fontsize = 30)
+
+del candlestick_plot, axlist, plots_to_add
+
+# Store the plots of upper and lower bounds as well as the actual long entries 
+plots_to_add = {"Upper Bound":mpf.make_addplot(upper_bound,color='#F93BFF'), "Lower Bound":mpf.make_addplot(lower_bound,color='white'),
+                "Recommended Long Entry Points":mpf.make_addplot(df_mark_real_entry_points,type='scatter',markersize=50,marker='^', color='#0042FF'),
+                "Recommended Take Profit Points":mpf.make_addplot(df_mark_real_tp_points,type='scatter',markersize=50,marker='v', color='white')
+                }
+
+# Plot the Close Price, Moving average, upper and lower bounds using a line chart.
+
+# Plotting
+# Create my own `marketcolors` style:
+mc = mpf.make_marketcolors(up='#2fc71e',down='#ed2f1a',inherit=True)
+# Create my own `MatPlotFinance` style:
+s  = mpf.make_mpf_style(base_mpl_style=['bmh', 'dark_background'],marketcolors=mc, y_on_right=True)    
+
+# Plot it
+candlestick_plot, axlist = mpf.plot(df_trading_pair_date_time_index,
+                    figsize=(40,20),
+                    figratio=(10, 6),
+                    type="candle",
+                    style=s,
+                    tight_layout=True,
+                    datetime_format = '%b %d, %H:%M:%S',
+                    ylabel = "Price ($)",
+                    returnfig=True,
+                    show_nontrading=True,
+                    warn_too_much_data=870, # Silence the Too Much Data Plot Warning by setting a value greater than the amount of rows you want to be plotted
+                    addplot = list(plots_to_add.values()) # Add the upper and lower bounds plots as well as the bullish entries to the main plot
+                    )
+# Add Title
+symbol = trading_pair.replace("USDT", "")+"/"+"USDT"
+axlist[0].set_title(f"{symbol} - {timeframe}", fontsize=45, style='italic', fontfamily='fantasy')
+
+# Set the legends
+# First set the amount of legends to add to the legend box
+axlist[0].legend([None]*(len(plots_to_add)+2))
+# Then Store the legend objects in a variable called "handles", based on this script, your objects to legend will appear from the third element in this list
+handles = axlist[0].get_legend().legendHandles
+# Finally set the corresponding names for the plotted SMA trends and place the legend box to the lower right corner in the bigger plot
+axlist[0].legend(handles=handles[2:],labels=list(plots_to_add.keys()), loc = 'lower left', fontsize = 30)
 
 # Create a financial report
 print(f"The trading pair analyzed was {symbol}")
