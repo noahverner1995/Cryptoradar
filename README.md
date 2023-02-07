@@ -124,8 +124,12 @@ You will get an output like this:
 
 ## Future Work
 
-1.   <s>Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**</s> Done, [here](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Streamlit%20version/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median%20-%20Streamlit%20Version.py)
-
+1.   <s>Release another version that plots the data using **[Streamlit](https://streamlit.io/)** rather than **[MatPlotLibFinance (a.k.a. "mplfinance")](https://github.com/matplotlib/mplfinance)**</s> Done, [here](https://github.com/noahverner1995/Cryptoradar/blob/main/Binance%20Spot%20Market/Streamlit%20version/Price%20Action%20Analysis%20using%20upper%20and%20lower%20bounds%20and%20the%20median%20-%20Streamlit%20Version.py).
+2.   Release a program that tests this trading strategy over a long list of trading pairs from Binance Spot Market using `windows_size = 7`. Final output should print:
+     - The top 10 trading pairs that worked well with this strategy and parameter.
+     - The sum of the last 4 columns to have a quick idea about how well this performed.
+     - The results from a simulation run based on the top 10 trading pairs, its corresponding expected ROIs per trade, its corresponding hours spent, an arbitrary initial investment set. This simulation should run until the initial investment set gets 100x greater.
+     
 ## Contributors
 
 [Noah Verner - Software Engineer & Data Analyst](https://www.linkedin.com/in/noahverner/)
