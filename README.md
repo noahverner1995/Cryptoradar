@@ -50,7 +50,7 @@ Now before running [Price Action Analysis using upper and lower bounds and the m
 
 ## Input Data
 
-The program already handles all of the *ETL process* completely, you don't need to input anything else than the values for `trading_pair`, `interval`, and `start_str` variables.
+The program already handles all of the *ETL process* completely, you don't need to input anything else than the values for `trading_pair`, `timeframe`, and `start_str` variables.
 
 ## Output Data
 
@@ -114,7 +114,7 @@ You will get an output like this:
 
 **Chart from the MplFinance version:**
 
-![C98USDT-15m-5DAYSAGOUTC](https://user-images.githubusercontent.com/83596569/216649765-89867426-c88b-4ea0-b54a-20a647f0a36c.png)
+![image](https://user-images.githubusercontent.com/83596569/217118044-dca7e2ae-4de3-4e52-addf-907a02d59db0.png)
 
 **Chart from the Streamlit version:**
 
