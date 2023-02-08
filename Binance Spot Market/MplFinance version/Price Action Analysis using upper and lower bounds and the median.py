@@ -254,7 +254,7 @@ plots_to_add = {"Upper Bound":mpf.make_addplot(upper_bound,color='#F93BFF'), "Lo
                 "Recommended Take Profit Points":mpf.make_addplot(df_mark_real_tp_points,type='scatter',markersize=50,marker='v', color='white')
                 }
 
-# Plot the Close Price, Moving average, upper and lower bounds using a line chart.
+# Plot the Candlesticks, upper and lower bounds, and recommended long entry points and take profit points.
 
 # Plotting
 # Create my own `marketcolors` style:
