@@ -1,5 +1,5 @@
 # CryptoRadar
-A Python repository focused on applying Data Science to trade cryptocurrencies on Binance Exchange
+A Python repository focused on applying Data Science and Business Intelligence to cryptocurrency trading on Binance Exchange
 
 ## Introduction
 
